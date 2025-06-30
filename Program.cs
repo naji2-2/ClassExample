@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ClassExample
 {
@@ -7,6 +8,19 @@ namespace ClassExample
         class Parent
         {
             public static int counter = 0;
+            public int variable = 273;
+
+            // 하이딩
+            public void Method()
+            {
+                Console.WriteLine("부모의 메소드");
+            }
+
+            // 오버라이딩
+            public virtual void MethodO()
+            {
+                Console.WriteLine("부모의 메소드");
+            }
 
             public void CountParent()
             {
@@ -19,6 +33,16 @@ namespace ClassExample
         }
 
         class Child : Parent{
+            public string variable = "12345";
+            public new void Method()
+            {
+                Console.WriteLine("자식의 메소드");
+            }
+
+            public override void MethodO()
+            {
+                Console.WriteLine("자식의 메소드");
+            }
 
             public void CountChild()
             {
@@ -62,6 +86,30 @@ namespace ClassExample
             Console.WriteLine(Parent.counter);
             Console.WriteLine(Child.counter);
 
+            // 변수 하이딩
+            Child child3 = new Child();
+            Console.WriteLine(child3.variable);             // 문자열 variable 출력
+            Console.WriteLine(((Parent)child3).variable);   // 숫자 variable 출력
+
+            // 메서드 하이딩
+            child3.Method();            // 자식의 메서드 호출
+            ((Parent)child3).Method();  // 부모의 메서드 호출
+
+            // 메서드 하이딩
+            child3.MethodO();            // 자식의 메서드 호출
+            ((Parent)child3).MethodO();  // 자식의 메서드 호출  --> 부모의 메소드를 덮어썼기 때문
+
+            // 강아지와 고양이로 알아보는 하이딩, 오버라이딩
+            List<Animal> Animals = new List<Animal>()
+            {
+                new Dog(), new Cat(), new Cat(), new Dog(),
+                new Cat(), new Cat(), new Dog(), new Dog()
+            };
+            foreach( var item in Animals)
+            {
+                item.Eat();
+            }
+        
         }
     }
 }
