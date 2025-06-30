@@ -7,7 +7,12 @@ namespace ClassExample
         class Parent
         {
             public static int counter = 0;
+            public int variable = 273;
 
+            public void Method()
+            {
+                Console.WriteLine("부모의 메소드");
+            }
             public void CountParent()
             {
                 Parent.counter++;
@@ -19,7 +24,11 @@ namespace ClassExample
         }
 
         class Child : Parent{
-
+            public string variable = "12345";
+            public void Method()
+            {
+                Console.WriteLine("자식의 메소드");
+            }
             public void CountChild()
             {
                 Child.counter++;
@@ -62,6 +71,14 @@ namespace ClassExample
             Console.WriteLine(Parent.counter);
             Console.WriteLine(Child.counter);
 
+            // 변수 하이딩
+            Child child3 = new Child();
+            Console.WriteLine(child3.variable);             // 문자열 variable 출력
+            Console.WriteLine(((Parent)child3).variable);   // 숫자 variable 출력
+
+            // 메서드 하이딩
+            child3.Method();            // 자식의 메서드 호출
+            ((Parent)child3).Method();  // 부모의 메서드 호출
         }
     }
 }
